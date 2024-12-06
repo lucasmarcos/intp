@@ -1,0 +1,28 @@
+básicos:
+  soma: 1+2=3
+  sub: 5-3=2
+  mult: 4*3=12
+  div: 8/2=4
+
+negativos:
+  -1+2=1
+  -3*4=-12
+  6/-2=-3
+
+precedencia:
+  sem: 2+3*4=14
+  com: (2+3)*4=20
+  aninhado: 2*(3+(4-1))=12
+
+sintaxe:
+  espaco: 1 + 2 = 3
+  incompleto: 2 + # erro
+  operadores: 2**2 # erro
+            : 2*/2 # erro
+  desbalanco: (2+3 # erro
+  espaco misto: ((1 + 2) * (3 + 4)) - 5 = 16
+
+semantica:
+  divzero: 5/0 # erro
+  vazio:  # erro
+
