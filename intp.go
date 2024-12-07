@@ -135,7 +135,7 @@ func parseFator(tokens []string, pos *int, proximo func() string) (*Folha, error
 	}
 
 	if len(token) == 0 {
-		return nil, errors.New("token invalido")
+		return nil, errors.New("fim inexperado")
 	}
 
 	if unicode.IsDigit(rune(token[0])) {
