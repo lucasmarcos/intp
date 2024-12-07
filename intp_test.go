@@ -1,7 +1,9 @@
 package intp_test
 
-import "testing"
-import "intp"
+import (
+	"intp"
+	"testing"
+)
 
 func TestBasicoSoma(t *testing.T) {
 	input := "1+2"
