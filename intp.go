@@ -1,5 +1,5 @@
 package intp
 
-func Executar(expressao string) bool {
-	return false
+func Executar(expressao string) (int, bool) {
+	return 0, false
 }
