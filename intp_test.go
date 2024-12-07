@@ -114,22 +114,83 @@ func TestPrecedenciaAninhado(t *testing.T) {
 }
 
 func TestSintaxeEspaco(t *testing.T) {
+	input := "1 + 2"
+	expected := 3
+
+	output, err := intp.Executar(input)
+
+	if err != false || output != expected {
+		t.Errorf("%s, %d, %d", input, expected, output)
+	}
 }
 
 func TestSintaxeIncompleto(t *testing.T) {
+	input := "2 +"
+
+	_, err := intp.Executar(input)
+
+	if err != true {
+		t.Errorf("%s, %t", input, err)
+	}
 }
 
-func TestSintaxeOperadores(t *testing.T) {
+func TestSintaxeOperadores1(t *testing.T) {
+	input := "2**2"
+
+	_, err := intp.Executar(input)
+
+	if err != true {
+		t.Errorf("%s, %t", input, err)
+	}
+}
+
+func TestSintaxeOperadores2(t *testing.T) {
+	input := "2*/2"
+
+	_, err := intp.Executar(input)
+
+	if err != true {
+		t.Errorf("%s, %t", input, err)
+	}
 }
 
 func TestSintaxeDesbalanco(t *testing.T) {
+	input := "(2+3"
+
+	_, err := intp.Executar(input)
+
+	if err != true {
+		t.Errorf("%s, %t", input, err)
+	}
 }
 
 func TestSintaxeMisto(t *testing.T) {
+	input := "((1 + 2) * (3 + 4)) - 5"
+	expected := 16
+
+	output, err := intp.Executar(input)
+
+	if err != false || output != expected {
+		t.Errorf("%s, %d, %d", input, expected, output)
+	}
 }
 
 func TestSemanticaDivZero(t *testing.T) {
+	input := "5/0"
+
+	_, err := intp.Executar(input)
+
+	if err != true {
+		t.Errorf("%s, %t", input, err)
+	}
 }
 
 func TestSemanticaVazio(t *testing.T) {
+	input := ""
+
+	_, err := intp.Executar(input)
+
+	if err != true {
+		t.Errorf("%s, %t", input, err)
+	}
 }
