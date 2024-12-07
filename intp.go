@@ -7,6 +7,7 @@ import (
 
 func lex(exp string) ([]string, error) {
 	tokens := make([]string, 0)
+
 	num := ""
 
 	for i := 0; i < len(exp); i++ {
@@ -67,6 +68,7 @@ func parseExp(tokens []string, pos *int, proximo func() string) (*Folha, error) 
 
 	for {
 		token := proximo()
+
 		if token == "+" || token == "-" {
 			dir, err := parseTermo(tokens, pos, proximo)
 
@@ -122,24 +124,42 @@ func parseTermo(tokens []string, pos *int, proximo func() string) (*Folha, error
 func parseFator(tokens []string, pos *int, proximo func() string) (*Folha, error) {
 	token := proximo()
 
-	var esq *Folha
+	if token == "-" {
+		p := proximo()
+
+		if token >= "0" && token <= "9" {
+			token = "-" + p
+		} else {
+			(*pos)--
+		}
+	}
 
 	if token >= "0" && token <= "9" {
-		esq, _ = parseNumber(token)
+		esq, err := parseNumero(token)
+
+		if err != nil {
+			return nil, err
+		}
+
+		return esq, nil
 	} else if token == "(" {
-		esq, _ = parseExp(tokens, pos, proximo)
+		esq, err := parseExp(tokens, pos, proximo)
+
+		if err != nil {
+			return nil, err
+		}
 
 		if proximo() != ")" {
 			return nil, errors.New("parenteses nao fechados")
 		}
+
+		return esq, nil
 	} else {
 		return nil, errors.New("token invalido " + token)
 	}
-
-	return esq, nil
 }
 
-func parseNumber(token string) (*Folha, error) {
+func parseNumero(token string) (*Folha, error) {
 	val, err := strconv.Atoi(token)
 
 	if err != nil {
