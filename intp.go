@@ -2,6 +2,7 @@ package intp
 
 import (
 	"errors"
+	"fmt"
 	"strconv"
 	"unicode"
 )
@@ -26,7 +27,7 @@ func lex(exp string) ([]string, error) {
 		} else if unicode.IsDigit(rune(ch)) {
 			num += string(ch)
 		} else {
-			return nil, errors.New("token invalido")
+			return nil, errors.New("lex: token invalido")
 		}
 	}
 
@@ -138,7 +139,7 @@ func parseFator(tokens []string, pos *int, proximo func() string) (*Folha, error
 		return nil, errors.New("fim inexperado")
 	}
 
-	if unicode.IsDigit(rune(token[0])) {
+	if unicode.IsDigit(rune(token[0])) || token[0] == '-' {
 		esq, err := parseNumero(token)
 
 		if err != nil {
@@ -215,18 +216,21 @@ func Executar(expressao string) (int, bool) {
 	tokens, err := lex(expressao)
 
 	if err != nil {
+		fmt.Println(err)
 		return 0, true
 	}
 
 	ast, err := parse(tokens)
 
 	if err != nil {
+		fmt.Println(err)
 		return 0, true
 	}
 
 	result, err := run(ast)
 
 	if err != nil {
+		fmt.Println(err)
 		return 0, true
 	}
 
