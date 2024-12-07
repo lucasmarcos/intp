@@ -3,11 +3,11 @@ package intp
 import (
 	"errors"
 	"strconv"
+	"unicode"
 )
 
 func lex(exp string) ([]string, error) {
 	tokens := make([]string, 0)
-
 	num := ""
 
 	for i := 0; i < len(exp); i++ {
@@ -23,7 +23,7 @@ func lex(exp string) ([]string, error) {
 				num = ""
 			}
 			tokens = append(tokens, string(ch))
-		} else if ch >= '0' && ch <= '9' {
+		} else if unicode.IsDigit(rune(ch)) {
 			num += string(ch)
 		} else {
 			return nil, errors.New("token invalido")
