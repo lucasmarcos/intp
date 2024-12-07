@@ -81,12 +81,36 @@ func TestNegativoDiv(t *testing.T) {
 }
 
 func TestPrecedenciaSem(t *testing.T) {
+	input := "2+3*4"
+	expected := 14
+
+	output, err := intp.Executar(input)
+
+	if err != false || output != expected {
+		t.Errorf("%s, %d, %d", input, expected, output)
+	}
 }
 
 func TestPrecedenciaCom(t *testing.T) {
+	input := "(2+3)*4"
+	expected := 20
+
+	output, err := intp.Executar(input)
+
+	if err != false || output != expected {
+		t.Errorf("%s, %d, %d", input, expected, output)
+	}
 }
 
 func TestPrecedenciaAninhado(t *testing.T) {
+	input := "2*(3+(4-1))"
+	expected := 12
+
+	output, err := intp.Executar(input)
+
+	if err != false || output != expected {
+		t.Errorf("%s, %d, %d", input, expected, output)
+	}
 }
 
 func TestSintaxeEspaco(t *testing.T) {
