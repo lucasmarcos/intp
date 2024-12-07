@@ -5,13 +5,6 @@ import (
 	"strconv"
 )
 
-type Folha struct {
-	Op    string
-	Valor int
-	Esq   *Folha
-	Dir   *Folha
-}
-
 func lex(exp string) ([]string, error) {
 	tokens := make([]string, 0)
 	num := ""
@@ -41,6 +34,13 @@ func lex(exp string) ([]string, error) {
 	}
 
 	return tokens, nil
+}
+
+type Folha struct {
+	Op    string
+	Valor int
+	Esq   *Folha
+	Dir   *Folha
 }
 
 func parse(tokens []string) (*Folha, error) {
