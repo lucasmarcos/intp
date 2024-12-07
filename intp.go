@@ -1,7 +1,36 @@
 package intp
 
+import (
+	"errors"
+)
+
 func lex(exp string) ([]string, error) {
-	return nil, nil
+	tokens := make([]string, 0)
+
+	for i := 0; i < len(exp); i++ {
+		if exp[i] == ' ' {
+		} else if exp[i] == '(' {
+			tokens = append(tokens, "(")
+		} else if exp[i] == ')' {
+			tokens = append(tokens, ")")
+		} else if exp[i] == '+' {
+			tokens = append(tokens, "+")
+		} else if exp[i] == '-' {
+			tokens = append(tokens, "-")
+		} else if exp[i] == '*' {
+			tokens = append(tokens, "*")
+		} else if exp[i] == '/' {
+			tokens = append(tokens, "/")
+		} else {
+			if exp[i] >= '0' && exp[i] <= '9' {
+				tokens = append(tokens, string(exp[i]))
+			} else {
+				return nil, errors.New("token invalido")
+			}
+		}
+	}
+
+	return tokens, nil
 }
 
 func parse(tokens []string) (string, error) {
