@@ -150,7 +150,37 @@ func parseNumber(token string) (*Folha, error) {
 }
 
 func run(ast *Folha) (int, error) {
-	return 0, nil
+	if ast.Op == "" {
+		return ast.Valor, nil
+	}
+
+	esq, err := run(ast.Esq)
+
+	if err != nil {
+		return 0, err
+	}
+
+	dir, err := run(ast.Dir)
+
+	if err != nil {
+		return 0, err
+	}
+
+	switch ast.Op {
+	case "+":
+		return esq + dir, nil
+	case "-":
+		return esq - dir, nil
+	case "*":
+		return esq * dir, nil
+	case "/":
+		if dir == 0 {
+			return 0, errors.New("divisao por zero")
+		}
+		return esq / dir, nil
+	default:
+		return 0, errors.New("operador invalido " + ast.Op)
+	}
 }
 
 func Executar(expressao string) (int, bool) {
