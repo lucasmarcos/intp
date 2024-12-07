@@ -26,12 +26,58 @@ func TestBasicoSub(t *testing.T) {
 }
 
 func TestBasicoMult(t *testing.T) {
+	input := "4*3"
+	expected := 12
+
+	output, err := intp.Executar(input)
+
+	if err != false || output != expected {
+		t.Errorf("%s, %d, %d", input, expected, output)
+	}
 }
 
 func TestBasicoDiv(t *testing.T) {
+	input := "8/2"
+	expected := 4
+
+	output, err := intp.Executar(input)
+
+	if err != false || output != expected {
+		t.Errorf("%s, %d, %d", input, expected, output)
+	}
 }
 
-func TestNegativo(t *testing.T) {
+func TestNegativoSoma(t *testing.T) {
+	input := "-1+2"
+	expected := 1
+
+	output, err := intp.Executar(input)
+
+	if err != false || output != expected {
+		t.Errorf("%s, %d, %d", input, expected, output)
+	}
+}
+
+func TestNegativoMult(t *testing.T) {
+	input := "-3*4"
+	expected := -12
+
+	output, err := intp.Executar(input)
+
+	if err != false || output != expected {
+		t.Errorf("%s, %d, %d", input, expected, output)
+	}
+}
+
+func TestNegativoDiv(t *testing.T) {
+	input := "6/-2"
+	expected := -3
+
+	output, err := intp.Executar(input)
+
+	if err != false || output != expected {
+		t.Errorf("%s, %d, %d", input, expected, output)
+	}
 }
 
 func TestPrecedenciaSem(t *testing.T) {
