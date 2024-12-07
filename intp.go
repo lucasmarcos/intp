@@ -127,14 +127,18 @@ func parseFator(tokens []string, pos *int, proximo func() string) (*Folha, error
 	if token == "-" {
 		p := proximo()
 
-		if token >= "0" && token <= "9" {
+		if unicode.IsDigit(rune(p[0])) {
 			token = "-" + p
 		} else {
 			(*pos)--
 		}
 	}
 
-	if token >= "0" && token <= "9" {
+	if len(token) == 0 {
+		return nil, errors.New("token invalido")
+	}
+
+	if unicode.IsDigit(rune(token[0])) {
 		esq, err := parseNumero(token)
 
 		if err != nil {
